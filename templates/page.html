@@ -36,7 +36,7 @@
         <header>
             <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white box-shadow">
                 <a class="navbar-brand" href="index.html">
-                    <img src="../resources/img/acdh_logo.png" alt="HistoGIS" title="some project logo"/>
+                    Grundbücher
                 </a>
                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"/>
@@ -45,74 +45,51 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Home
+                                Menü
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="index.html">Home</a>
-                                <a class="dropdown-item" href="show.html?document=about.xml&amp;directory=meta&amp;stylesheet=meta">About this website</a>
-                                <a class="dropdown-item" href="imprint.html">Imprint</a>
+                                <a class="dropdown-item" href="toc.html?collection=editions">Alle Dokumente</a>
+                                <a class="dropdown-item" href="show.html?document=about.xml&amp;directory=meta&amp;stylesheet=meta">Über das Projekt</a>
+                                <a class="dropdown-item" href="imprint.html">Impressum</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Table of Content
+                                Register
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="toc.html?collection=editions">Collection Editions</a>
-                                <a class="dropdown-item" href="toc.html?collection=indices">Collection Indices</a>
-                                <a class="dropdown-item" href="toc.html?collection=meta">Collection Meta</a>
+                                <a class="dropdown-item" href="persons.html">Personen</a>
+                                <a class="dropdown-item" href="places.html">Orte</a>
+                                <a class="dropdown-item" href="orgs.html">Institutionen</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Indices
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="persons.html">Persons</a>
-                                <a class="dropdown-item" href="places.html">Places</a>
-                                <a class="dropdown-item" href="orgs.html">Organizations</a>
-                                <a class="dropdown-item" href="bibl.html">Works</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Analyze
+                                Analyse
                             </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="timeline.html">Timeline</a>
                                 <a class="dropdown-item" href="netvis.html">Entity-Document-Net</a>
-                                <a class="dropdown-item" href="cmfi-netvis.html">CMFI-Net</a>
-                                <a class="dropdown-item" href="cmfi-timeline.html">CMFI-Timeline</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Data endpoints
+                                APIs
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/editions/xml">Text as XML</a>
-                                <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/editions/json">Text as JSON</a>
+                                <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/editions/xml">Text als XML</a>
+                                <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/editions/json">Text als JSON</a>
                                 <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/dt/editions/json">Datatables API-Endpoint</a>
-                                <a class="dropdown-item" href="../analyze/cmfi2net.xql">Network Data (GEFX)</a>
-                                <a class="dropdown-item" href="../analyze/beacon.xql">GND Beacon</a>
-                                <a class="dropdown-item" href="../analyze/timeline.xql">Timeline</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Autocompletes
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="../ac/entity-ac.xql?query=">Persons</a>
-                                <a class="dropdown-item" href="../ac/entity-ac.xql?entity=place&amp;query=">Places</a>
-                                <a class="dropdown-item" href="../ac/entity-ac.xql?entity=org&amp;query=">Institutions</a>
-                                <a class="dropdown-item" href="../ac/entity-ac.xql?entity=work&amp;query=">Work</a>
+                                <div class="dropdown-divider"/>
+                                <a class="dropdown-item" href="../ac/entity-ac.xql?query=">Personen</a>
+                                <a class="dropdown-item" href="../ac/entity-ac.xql?entity=place&amp;query=">Orte</a>
+                                <a class="dropdown-item" href="../ac/entity-ac.xql?entity=org&amp;query=">Institutionen</a>
                             </div>
                         </li>
                     </ul>
                     <form method="get" action="ft_search.html" class="form-inline my-2 my-lg-0">
-                        <input name="searchexpr" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" pattern=".{3,}" required="" title="3 characters minimum"/>
-                        <button class="btn btn-main btn-outline-primary btn-mg" type="submit">Search</button>
+                        <input name="searchexpr" class="form-control mr-sm-2" type="text" placeholder="Suche im Volltext" aria-label="Search" pattern=".{3,}" required="" title="3 characters minimum"/>
+                        <button class="btn btn-main btn-outline-primary btn-mg" type="submit">Suche</button>
                     </form>
                 </div>
             </nav>
