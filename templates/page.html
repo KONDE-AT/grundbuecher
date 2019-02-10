@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <html>
     <head>
         <title data-template="config:app-title">App Title</title>
@@ -6,13 +7,13 @@
         <link rel="shortcut icon" href="$shared/resources/images/exist_icon_16x16.ico"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/fundament.css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"/>
-        
-        
+
+
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/style.css"/>
         <!--scroll to top start-->
         <link rel="stylesheet" href="../resources/js/scroll-to-top/css/ap-scroll-top.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/custom.js"/>        
+        <script type="text/javascript" src="$app-root/resources/js/custom.js"/>
         <!-- Matomo -->
         <script type="text/javascript">
         var _paq = _paq || [];
@@ -28,8 +29,8 @@
             })();
         </script>
         <!-- End Matomo Code -->
-        
-        
+
+
     </head>
     <body role="document" class="contained fixed-nav" id="body">
         <header>
@@ -49,6 +50,8 @@
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="toc.html?collection=editions">Alle Dokumente</a>
                                 <a class="dropdown-item" href="show.html?document=about.xml&amp;directory=meta&amp;stylesheet=meta">Über das Projekt</a>
+                                <div class="dropdown-divider"/>
+                                <a class="dropdown-item" href="../api/api.html">API</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -66,22 +69,7 @@
                                 Analyse
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="timeline.html">Timeline</a>
                                 <a class="dropdown-item" href="netvis.html">Entity-Document-Net</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                APIs
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/editions/xml">Text als XML</a>
-                                <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/editions/json">Text als JSON</a>
-                                <a class="dropdown-item" href="../../../../exist/restxq/grundbuecher/dt/editions/json">Datatables API-Endpoint</a>
-                                <div class="dropdown-divider"/>
-                                <a class="dropdown-item" href="../ac/entity-ac.xql?query=">Personen</a>
-                                <a class="dropdown-item" href="../ac/entity-ac.xql?entity=place&amp;query=">Orte</a>
-                                <a class="dropdown-item" href="../ac/entity-ac.xql?entity=org&amp;query=">Institutionen</a>
                             </div>
                         </li>
                     </ul>
@@ -93,8 +81,8 @@
             </nav>
         </header>
         <div class="alert alert-danger" role="alert">
-            Under development! Things most likely change. 
-        </div>    
+            Under development! Things most likely change.
+        </div>
         <div id="content" class="container"/>
             <div id="loadModal"/>
             <footer class="main-footer">
@@ -138,8 +126,8 @@
                     <a href="https://www.oeaw.ac.at/die-oeaw/impressum/">Impressum/Imprint</a>
                 </div>
             </footer>
-        
-        
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"/>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"/>
         <script src="../resources/js/scroll-to-top/js/ap-scroll-top.min.js"/>

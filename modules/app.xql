@@ -1,20 +1,28 @@
 xquery version "3.1";
 module namespace app="http://www.digital-archiv.at/ns/grundbuecher/templates";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
+declare namespace pkg="http://expath.org/ns/pkg";
+declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace functx = 'http://www.functx.com';
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://www.digital-archiv.at/ns/grundbuecher/config" at "config.xqm";
 import module namespace kwic = "http://exist-db.org/xquery/kwic" at "resource:org/exist/xquery/lib/kwic.xql";
 
 
-declare variable  $app:data := $config:app-root||'/data';
-declare variable  $app:editions := $config:app-root||'/data/editions';
-declare variable  $app:indices := $config:app-root||'/data/indices';
+declare variable $app:xslCollection := $config:app-root||'/resources/xslt';
+declare variable $app:data := $config:app-root||'/data';
+declare variable $app:meta := $config:app-root||'/data/meta';
+declare variable $app:editions := $config:app-root||'/data/editions';
+declare variable $app:indices := $config:app-root||'/data/indices';
 declare variable $app:placeIndex := $config:app-root||'/data/indices/listplace.xml';
 declare variable $app:personIndex := $config:app-root||'/data/indices/listperson.xml';
 declare variable $app:orgIndex := $config:app-root||'/data/indices/listorg.xml';
 declare variable $app:workIndex := $config:app-root||'/data/indices/listwork.xml';
 declare variable $app:defaultXsl := doc($config:app-root||'/resources/xslt/xmlToHtml.xsl');
+declare variable $app:projectName := doc(concat($config:app-root, "/expath-pkg.xml"))//pkg:title//text();
+declare variable $app:authors := normalize-space(string-join(doc(concat($config:app-root, "/repo.xml"))//repo:author//text(), ', '));
+declare variable $app:description := doc(concat($config:app-root, "/repo.xml"))//repo:description/text();
+
 
 declare function functx:contains-case-insensitive
   ( $arg as xs:string? ,
@@ -53,9 +61,9 @@ declare function functx:substring-after-last
    concat(upper-case(substring($arg,1,1)),
              substring($arg,2))
  } ;
- 
+
 (:~
- : returns the names of the previous, current and next document  
+ : returns the names of the previous, current and next document
 :)
 
 declare function app:next-doc($collection as xs:string, $current as xs:string) {
@@ -63,7 +71,7 @@ let $all := sort(xmldb:get-child-resources($collection))
 let $currentIx := index-of($all, $current)
 let $prev := if ($currentIx > 1) then $all[$currentIx - 1] else false()
 let $next := if ($currentIx < count($all)) then $all[$currentIx + 1] else false()
-return 
+return
     ($prev, $current, $next)
 };
 
@@ -73,7 +81,7 @@ let $currentIx := index-of($all, $current)
 let $prev := if ($currentIx > 1) then $all[$currentIx - 1] else false()
 let $next := if ($currentIx < count($all)) then $all[$currentIx + 1] else false()
 let $amount := count($all)
-return 
+return
     ($prev, $current, $next, $amount, $currentIx)
 };
 
@@ -267,6 +275,82 @@ declare function app:listPlace($node as node(), $model as map(*)) {
         </tr>
 };
 
+(:~
+ : returns header information about the current collection
+ :)
+declare function app:tocHeader($node as node(), $model as map(*)) {
+
+    let $collection := request:get-parameter("collection", "")
+    let $colName := if ($collection)
+        then
+            $collection
+        else
+            "editions"
+    let $docs := count(collection(concat($config:app-root, '/data/', $colName, '/'))//tei:TEI)
+    let $infoDoc := doc($app:meta||"/"||$colName||".xml")
+    let $colLabel := $infoDoc//tei:title[1]/text()
+    let $infoUrl := "show.html?document="||$colName||".xml&amp;directory=meta"
+    let $apiUrl := "../../../../exist/restxq/grundbuecher/api/collections/"||$colName
+    return
+        <div class="card-header" style="text-align:center;">
+            <h1>{$docs} Dokumente in {$colLabel}</h1>
+            <h3>
+                <a>
+                    <i class="fas fa-info" title="Info zum Personenregister" data-toggle="modal" data-target="#exampleModal"/>
+                </a>
+                |
+                <a href="{$apiUrl}">
+                    <i class="fas fa-download" title="Liste der TEI Dokumente"/>
+                </a>
+            </h3>
+        </div>
+};
+
+(:~
+ : returns context information about the current collection displayd in a bootstrap modal
+ :)
+declare function app:tocModal($node as node(), $model as map(*)) {
+
+    let $collection := request:get-parameter("collection", "")
+    let $colName := if ($collection)
+        then
+            $collection
+        else
+            "editions"
+    let $infoDoc := doc($app:meta||"/"||$colName||".xml")
+    let $colLabel := $infoDoc//tei:title[1]/text()
+   let $params :=
+        <parameters>
+            <param name="app-name" value="{$config:app-name}"/>
+            <param name="collection-name" value="{$colName}"/>
+            <param name="projectName" value="{$app:projectName}"/>
+            <param name="authors" value="{$app:authors}"/>
+           {
+                for $p in request:get-parameter-names()
+                    let $val := request:get-parameter($p,())
+                        return
+                           <param name="{$p}"  value="{$val}"/>
+           }
+        </parameters>
+    let $xsl := doc($app:xslCollection||"/modals.xsl")
+    let $modalBody := transform:transform($infoDoc, $xsl, $params)
+    return
+        <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{$colLabel}</h5>
+                </div>
+                <div class="modal-body">
+                   {$modalBody}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+};
 
 (:~
  : creates a basic table of content derived from the documents stored in '/data/editions'
@@ -280,7 +364,7 @@ declare function app:toc($node as node(), $model as map(*)) {
         else
             collection(concat($config:app-root, '/data/editions/'))//tei:TEI
     for $title in $docs
-        let $date := $title//tei:title//text()
+        let $date := $title//tei:title[@type="main"]//text()
         let $link2doc := if ($collection)
             then
                 <a href="{app:hrefToDoc($title, $collection)}">{app:getDocName($title)}</a>
@@ -328,7 +412,7 @@ let $xsl := if($xslPath eq "")
                 doc($config:app-root||'/resources/xslt/'||$xslPath||'.xsl')
             else
                 $app:defaultXsl
-let $path2source := string-join(('../../../../exist/restxq', $config:app-name, $collection, $ref, 'xml'), '/')
+let $path2source := string-join(('../../../../exist/restxq', $config:app-name,'api/collections', $collection, $ref), '/')
 let $params :=
 <parameters>
     <param name="app-name" value="{$config:app-name}"/>
@@ -339,7 +423,9 @@ let $params :=
     <param name="amount" value="{$amount}"/>
     <param name="currentIx" value="{$currentIx}"/>
     <param name="progress" value="{$progress}"/>
-    
+    <param name="projectName" value="{$app:projectName}"/>
+    <param name="authors" value="{$app:authors}"/>
+
    {
         for $p in request:get-parameter-names()
             let $val := request:get-parameter($p,())
@@ -359,7 +445,7 @@ declare function app:listBibl($node as node(), $model as map(*)) {
     for $item in doc($app:workIndex)//tei:listBibl/tei:bibl
     let $author := normalize-space(string-join($item/tei:author//text(), ' '))
     let $gnd := $item//tei:idno/text()
-    let $gnd_link := if ($gnd) 
+    let $gnd_link := if ($gnd)
         then
             <a href="{$gnd}">{$gnd}</a>
         else
@@ -386,7 +472,7 @@ declare function app:listOrg($node as node(), $model as map(*)) {
     for $item in doc($app:orgIndex)//tei:listOrg/tei:org
     let $altnames := normalize-space(string-join($item//tei:orgName[@type='alt'], ' '))
     let $gnd := $item//tei:idno/text()
-    let $gnd_link := if ($gnd) 
+    let $gnd_link := if ($gnd)
         then
             <a href="{$gnd}">{$gnd}</a>
         else
@@ -414,4 +500,3 @@ declare function app:firstDoc($node as node(), $model as map(*)) {
         return
             <a class="btn btn-main btn-outline-primary btn-lg" href="{$href}" role="button">Start Reading</a>
 };
-

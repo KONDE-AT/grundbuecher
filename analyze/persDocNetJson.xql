@@ -6,11 +6,11 @@ declare option exist:serialize "method=json media-type=text/javascript";
 
 (:transforms a CMFI document into a JSON which can be processed by visjs into a network graph:)
 
-let $result := 
+let $result :=
     <result>{
-        
+
         for $doc at $pos in collection($app:editions)//tei:TEI
-            let $title := $doc//tei:titleStmt/tei:title[@type='sub']/text()
+            let $title := $doc//tei:titleStmt/tei:title[@type='main']/text()
             return
                 <nodes>
                     <id>{$pos}</id>
@@ -19,9 +19,9 @@ let $result :=
                 </nodes>
     }
     {
-        
+
         for $doc at $pos in collection($app:editions)//tei:TEI
-            let $title := $doc//tei:titleStmt/tei:title[@type='sub']
+            let $title := $doc//tei:titleStmt/tei:title[@type='main']
             let $docID := $pos
             for $person in $doc//tei:body//tei:rs[@type="person"]
                 let $key := data($person/@ref)
@@ -43,11 +43,11 @@ let $result :=
                         <to>{$key}</to>
                     </edges>
      }
-     
+
      {
-        
+
         for $doc at $pos in collection($app:editions)//tei:TEI
-            let $title := $doc//tei:titleStmt/tei:title[@type='sub']
+            let $title := $doc//tei:titleStmt/tei:title[@type='main']
             let $docID := $pos
             for $person in $doc//tei:body//tei:rs[@type="org"]
                 let $key := data($person/@ref)
@@ -70,7 +70,7 @@ let $result :=
                     </edges>
      }
      {
-        
+
         for $doc at $pos in collection($app:editions)//tei:TEI
             let $title := $doc//tei:titleStmt/tei:title[@type='sub']
             let $docID := $pos

@@ -1,6 +1,6 @@
 # grundbuecher web app
 
-A [dsebaseapp](https://github.com/KONDE-AT/dsebaseapp) based web app to publish XML/TEI encoded transcriptions of early modern land registry books of Vienna.
+A [grundbuecher](https://github.com/KONDE-AT/grundbuecher) based web app to publish XML/TEI encoded transcriptions of early modern land registry books of Vienna.
 
 ## install
 
