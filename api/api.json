@@ -145,6 +145,13 @@
             "description": "ID of the document to return",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The format of the response, defaults to 'xml', alternative is 'text'",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
