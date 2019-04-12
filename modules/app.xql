@@ -208,7 +208,7 @@ let $href := concat('show.html','?document=', app:getDocName($node), '&amp;direc
 declare function app:indexSearch_hits($node as node(), $model as map(*),  $searchkey as xs:string?, $path as xs:string?){
 let $indexSerachKey := $searchkey
 let $searchkey:= '#'||$searchkey
-let $entities := collection($app:data)//tei:TEI[.//*/@ref=$searchkey]
+let $entities := collection($app:editions)//tei:TEI[.//*/@ref=$searchkey]
 let $terms := collection($app:editions)//tei:TEI[.//tei:term[./text() eq substring-after($searchkey, '#')]]
 for $title in ($entities, $terms)
     let $docTitle := string-join(root($title)//tei:titleStmt/tei:title[@type='main']//text(), ' ')
@@ -219,7 +219,7 @@ for $title in ($entities, $terms)
                 let $before := $entity/preceding::text()[1]
                 let $after := $entity/following::text()[1]
                 return
-                    <p>… {$before} <strong><a href="{concat(app:hrefToDoc($title, $collection), "&amp;searchkey=", $indexSerachKey)}"> {$entity//text()[not(ancestor::tei:abbr)]}</a></strong> {$after}…<br/></p>
+                    <p>… {$before} <strong><a href="{concat(app:hrefToDoc($title, $collection), "&amp;searchkey=", $indexSerachKey)}"> {$entity//text()}</a></strong> {$after}…<br/></p>
     let $zitat := $title//tei:msIdentifier
     let $collection := app:getColName($title)
     return
