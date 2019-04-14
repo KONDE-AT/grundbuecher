@@ -5,11 +5,11 @@ xquery version "3.1";
  : @author Peter Andorfer
 :)
 
-module namespace api="http://www.digital-archiv.at/ns/thun/api";
+module namespace api="http://www.digital-archiv.at/ns/grundbuecher/api";
 declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 import module namespace functx = "http://www.functx.com";
-import module namespace config="http://www.digital-archiv.at/ns/thun/config" at "../modules/config.xqm";
+import module namespace config="http://www.digital-archiv.at/ns/grundbuecher/config" at "../modules/config.xqm";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace http = "http://expath.org/ns/http-client";
 
@@ -157,7 +157,7 @@ declare variable $api:XML :=
 
 declare 
     %rest:GET
-    %rest:path("/thun/api/about")
+    %rest:path("/grundbuecher/api/about")
     %rest:query-param("page[number]", "{$pageNumber}", 1)
     %rest:query-param("page[size]", "{$pageSize}", 20)
     %rest:query-param("format", "{$format}", 'json')
@@ -165,13 +165,13 @@ function api:api-about($format as xs:string*, $pageNumber as xs:integer*, $pageS
     let $endpoints := 
         <result>
             <ep>
-                <url>/thun/api/collections</url>
+                <url>/grundbuecher/api/collections</url>
                 <name>list collections</name>
                 <description>API-Endpoint to list all child collections of the app's data collection</description>
                 <group>collections</group>
             </ep>
             <ep>
-                <url>{"/thun/api/collections/{$collection}"}</url>
+                <url>{"/grundbuecher/api/collections/{$collection}"}</url>
                 <name>list documents per collection</name>
                 <description>API-Endpoint to list all documents stored in the passed in collection</description>
                 <group>documents</group>
@@ -246,7 +246,7 @@ function api:api-about($format as xs:string*, $pageNumber as xs:integer*, $pageS
 
 declare 
     %rest:GET
-    %rest:path("/thun/api/collections")
+    %rest:path("/grundbuecher/api/collections")
     %rest:query-param("page[number]", "{$pageNumber}", 1)
     %rest:query-param("page[size]", "{$pageSize}", 20)
     %rest:query-param("format", "{$format}", 'json')
@@ -293,7 +293,7 @@ function api:api-list-collections($format as xs:string*, $pageNumber as xs:integ
 :)
 declare 
     %rest:GET
-    %rest:path("/thun/api/collections/{$collection}")
+    %rest:path("/grundbuecher/api/collections/{$collection}")
     %rest:query-param("page[number]", "{$pageNumber}", 1)
     %rest:query-param("page[size]", "{$pageSize}", 20)
     %rest:query-param("format", "{$format}", 'json')
@@ -315,7 +315,7 @@ function api:api-list-documents($collection as xs:string, $format as xs:string*,
 
 declare
     %rest:GET
-    %rest:path("/thun/api/entities")
+    %rest:path("/grundbuecher/api/entities")
     %rest:query-param("page[number]", "{$pageNumber}", 1)
     %rest:query-param("page[size]", "{$pageSize}", 20)
     %rest:query-param("format", "{$format}", 'json')
@@ -366,12 +366,17 @@ function api:api-list-entities($pageNumber as xs:integer*, $pageSize as xs:integ
 
 declare 
     %rest:GET
-    %rest:path("/thun/api/collections/{$collection}/{$id}")
+    %rest:path("/grundbuecher/api/collections/{$collection}/{$id}")
     %rest:query-param("format", "{$format}", 'xml')
 function api:api-show-doc($collection as xs:string, $id as xs:string, $format as xs:string*) {
     let $result := doc($config:app-root||'/data/'||$collection||'/'||$id)
+    
+    let $orig_text := normalize-space(string-join($result//tei:div[@type="entry"]//text()[
+            not(parent::tei:note) and not(parent::tei:bibl) and not(parent::tei:author) and not(parent::tei:quote)
+        ], ''))
+    
     let $content := switch($format)
-        case ('text') return $result//tei:body
+        case ('text') return $orig_text
         default return $result
     let $serialization := switch($format)
         case('xml') return $api:XML
@@ -390,7 +395,7 @@ function api:api-show-doc($collection as xs:string, $id as xs:string, $format as
 
 declare
     %rest:GET
-    %rest:path("/thun/api/entities/{$id}")
+    %rest:path("/grundbuecher/api/entities/{$id}")
 function api:api-show-entity($id as xs:string){
     let $entity := collection($api:indices)//id($id)
     return
@@ -406,7 +411,7 @@ function api:api-show-entity($id as xs:string){
 
 declare
     %rest:GET
-    %rest:path("/thun/api/entity-types")
+    %rest:path("/grundbuecher/api/entity-types")
     %rest:query-param("page[number]", "{$pageNumber}", 1)
     %rest:query-param("page[size]", "{$pageSize}", 20)
     %rest:query-param("format", "{$format}", 'json')
@@ -456,7 +461,7 @@ function api:api-list-entity-types($pageNumber as xs:integer*, $pageSize as xs:i
 
 declare 
     %rest:GET
-    %rest:path("/thun/api/entity-types/{$id}")
+    %rest:path("/grundbuecher/api/entity-types/{$id}")
 function api:api-show-ent-type-doc($id as xs:string) {
     let $result := doc($api:indices||'/'||$id)
     return 
