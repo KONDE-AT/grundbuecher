@@ -18,6 +18,13 @@
     <xsl:variable name="signatur">
         <xsl:value-of select=".//tei:institution/text()"/>, <xsl:value-of select=".//tei:repository[1]/text()"/>, <xsl:value-of select=".//tei:msIdentifier/tei:idno[1]/text()"/>
     </xsl:variable>
+    <xsl:variable name="IIIFBase">https://iiif.acdh.oeaw.ac.at/grundbuecher/</xsl:variable>
+    <xsl:variable name="InfoJson">
+        <xsl:value-of select="concat($IIIFBase, substring-before(data(.//tei:graphic[1]/@url), '.'), '/info.json')"/>
+    </xsl:variable>
+    <xsl:variable name="IIIFViewer">
+        <xsl:value-of select="substring-before($InfoJson, 'info.json')"/>
+    </xsl:variable>
  <!--
 ##################################
 ### Seitenlayout und -struktur ###
@@ -74,8 +81,19 @@
                 </div>
             </div>
             <div class="card-body">
-                <div>
-                    <xsl:apply-templates select="//tei:text"/>
+                <div class="row">
+                    <div class="col-md-5">
+                        <xsl:apply-templates select="//tei:text"/>
+                    </div>
+                    <div class="col-md-7" style="text-align: center;">
+                        <div style="width: 100%; height: 100%" id="osd_viewer"/>
+                        <a target="_blank">
+                            <xsl:attribute name="href">
+                                <xsl:value-of select="$IIIFViewer"/>
+                            </xsl:attribute>
+                            open image in new window
+                        </a>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <p style="text-align:center;">
@@ -224,6 +242,18 @@
                 </div>
             </div>
         </div>
+        <script src="$app-root/resources/js/openseadragon/openseadragon.min.js"/>
+        <script type="text/javascript">
+            var source = "<xsl:value-of select="$InfoJson"/>";
+            var viewer = OpenSeadragon({
+            id: "osd_viewer",
+            tileSources: [
+                source
+            ],
+            prefixUrl:     "../resources/js/openseadragon/images/",
+            });
+        </script>
+        
         
         
     </xsl:template>
