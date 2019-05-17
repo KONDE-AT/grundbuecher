@@ -253,8 +253,11 @@
             prefixUrl:     "../resources/js/openseadragon/images/",
             });
         </script>
-        
-        
-        
+    </xsl:template>
+    
+    <xsl:template match="tei:hi[@rend='super']">
+        <sup>
+            <xsl:apply-templates/>
+        </sup>
     </xsl:template>
 </xsl:stylesheet>

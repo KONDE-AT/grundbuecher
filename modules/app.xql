@@ -22,7 +22,7 @@ declare variable $app:orgIndex := $config:app-root||'/data/indices/listorg.xml';
 declare variable $app:workIndex := $config:app-root||'/data/indices/listwork.xml';
 declare variable $app:defaultXsl := doc($config:app-root||'/resources/xslt/xmlToHtml.xsl');
 declare variable $app:projectName := doc(concat($config:app-root, "/expath-pkg.xml"))//pkg:title//text();
-declare variable $app:authors := normalize-space(string-join(doc(concat($config:app-root, "/repo.xml"))//repo:author//text(), ', '));
+declare variable $app:authors := "Thomas Ertl, Patrick Fiska, Richard Weinbergmair, Korbinian Grünwald, Peter Andorfer";
 declare variable $app:description := doc(concat($config:app-root, "/repo.xml"))//repo:description/text();
 
 declare variable $app:redmineBaseUrl := "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID=";
@@ -294,7 +294,7 @@ declare function app:tocHeader($node as node(), $model as map(*)) {
     let $infoDoc := doc($app:meta||"/"||$colName||".xml")
     let $colLabel := $infoDoc//tei:title[1]/text()
     let $infoUrl := "show.html?document="||$colName||".xml&amp;directory=meta"
-    let $apiUrl := "../../../../exist/restxq/grundbuecher/api/collections/"||$colName
+    let $apiUrl := "../resolver/resolve-col.xql?collection="||$colName
     return
         <div class="card-header" style="text-align:center;">
             <h1>{$docs} Dokumente in {$colLabel}</h1>
@@ -418,7 +418,7 @@ let $xsl := if($xslPath eq "")
                 doc($config:app-root||'/resources/xslt/'||$xslPath||'.xsl')
             else
                 $app:defaultXsl
-let $path2source := string-join(('../../../../exist/restxq', $config:app-name,'api/collections', $collection, $ref), '/')
+let $path2source := "../resolver/resolve-doc.xql?doc-name="||$ref||"&amp;collection="||$collection
 let $params :=
 <parameters>
     <param name="app-name" value="{$config:app-name}"/>
