@@ -58,7 +58,15 @@
                             | 
                             <a href="{$path2source}">
                                 <i class="fas fa-download" title="show TEI source"/>
-                            </a>
+                            </a> |
+                            <xsl:choose>
+                                <xsl:when test="//tei:revisionDesc[@status='done']">
+                                    <span class="green-dot" title="Dokument überprüft und annotiert"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <span class="orange-dot" title="Dokument wurde noch nicht überprüft und annotiert"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </h2>
                         <h2 style="text-align:center;">
                             <input type="range" min="1" max="{$amount}" value="{$currentIx}" data-rangeslider="" style="width:100%;"/>

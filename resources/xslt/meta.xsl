@@ -8,6 +8,7 @@
     <xsl:param name="ref"/>
     <xsl:param name="prev"/>
     <xsl:param name="next"/>
+    <xsl:param name="authors"/>
     <!--
 ##################################
 ### Seitenlayout und -struktur ###
@@ -57,9 +58,32 @@
                 </div>
                 <div class="card-body">
                     <xsl:apply-templates select="//tei:body"/>
+                    <h3>Anmerkungen</h3>
+                    <p>
+                        <xsl:for-each select="tei:TEI/tei:text/tei:body//tei:note">
+                            <div class="footnotes">
+                                <xsl:element name="a">
+                                    <xsl:attribute name="name">
+                                        <xsl:text>fn</xsl:text>
+                                        <xsl:number level="any" format="1" count="tei:note[./tei:p]"/>
+                                    </xsl:attribute>
+                                    <a>
+                                        <xsl:attribute name="href">
+                                            <xsl:text>#fna_</xsl:text>
+                                            <xsl:number level="any" format="1" count="tei:note"/>
+                                        </xsl:attribute>
+                                        <sup>
+                                            <xsl:number level="any" format="1" count="tei:note[./tei:p]"/>
+                                        </sup>
+                                    </a>
+                                </xsl:element>
+                                <xsl:apply-templates select="./tei:p/text()"/>
+                            </div>
+                        </xsl:for-each>
+                    </p>
                 </div>
                 <div class="card-footer text-muted" style="text-align:center">
-                    ACDH-OeAW,
+                    <xsl:value-of select="$authors"/>, 
                     <i>
                         <xsl:value-of select="//tei:title[@type='sub']"/> - 
                         <xsl:value-of select="//tei:title[@type='main']"/>
@@ -69,10 +93,16 @@
                         <xsl:attribute name="href">
                             <xsl:value-of select="$path2source"/>
                         </xsl:attribute>
-                        see the TEI source of this document
+                        TEI
                     </a>
                 </div>
             </div>
         </div>
+    </xsl:template>
+    
+    <xsl:template match="tei:p[@rend='Quote']">
+        <blockquote>
+            <xsl:apply-templates/>
+        </blockquote>
     </xsl:template>
 </xsl:stylesheet>

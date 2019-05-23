@@ -369,6 +369,11 @@ declare function app:toc($node as node(), $model as map(*)) {
             collection(concat($config:app-root, '/data/editions/'))//tei:TEI
     for $title in $docs
         let $date := $title//tei:title[@type="main"]//text()
+        let $status := if($title//tei:revisionDesc[@status='done'])
+            then
+                <span class="green-dot" title="Dokument überprüft und annotiert"/>
+            else
+                <span class="orange-dot" title="Dokument in Arbeit"/>
         let $verwaltung := normalize-space(string-join($title//tei:title[@type="rubrik"]//text()))
         let $link2doc := if ($collection)
             then
@@ -377,7 +382,7 @@ declare function app:toc($node as node(), $model as map(*)) {
                 <a href="{app:hrefToDoc($title)}">{app:getDocName($title)}</a>
         return
             <tr>
-                <td>{$date}</td>
+                <td>{$date} {$status}</td>
                 <td>{$verwaltung}</td>
                 <td>
                     {$link2doc}
