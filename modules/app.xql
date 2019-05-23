@@ -26,7 +26,7 @@ declare variable $app:authors := "Thomas Ertl, Patrick Fiska, Richard Weinbergma
 declare variable $app:description := doc(concat($config:app-root, "/repo.xml"))//repo:description/text();
 
 declare variable $app:redmineBaseUrl := "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID=";
-declare variable $app:redmineID := "13769";
+declare variable $app:redmineID := "12131";
 
 declare function functx:contains-case-insensitive
   ( $arg as xs:string? ,
