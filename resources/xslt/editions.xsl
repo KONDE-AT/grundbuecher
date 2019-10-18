@@ -268,4 +268,21 @@
             <xsl:apply-templates/>
         </sup>
     </xsl:template>
+    
+    <xsl:template match="tei:rs[@ref and @type='person' or @type='place']">
+        <strong>
+            <xsl:element name="a">
+                <xsl:attribute name="class">reference</xsl:attribute>
+                <xsl:attribute name="data-type">
+                    <xsl:value-of select="concat('list', data(@type), '.xml')"/>
+                </xsl:attribute>
+                <xsl:attribute name="data-key">
+                    <xsl:value-of select="substring-after(data(@ref), '#')"/>
+                    <xsl:value-of select="@key"/>
+                </xsl:attribute>
+                <xsl:value-of select="."/>
+            </xsl:element>
+        </strong>
+    </xsl:template>
+    
 </xsl:stylesheet>
