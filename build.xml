@@ -4,6 +4,10 @@
     <property name="project.version" value="${package(version)}"/>
     <property name="project.app" value="grundbuecher"/>
     <property name="build.dir" value="build"/>
+    <copy todir="./data/editions">
+      <fileset dir="../grundbuecher-data/data/editions"/>
+    </copy>
+    <copy file="../db_for_legal_transactions_monastries/data/lists/personList.xml" tofile="./data/indices/listperson.xml" />
     <target name="xar">
         <mkdir dir="${build.dir}"/>
         <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="${build.dir}/* data/temp/** temp/**"/>
