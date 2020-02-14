@@ -242,6 +242,7 @@ declare function app:listPers($node as node(), $model as map(*)) {
     for $person in doc($app:personIndex)//tei:listPerson/tei:person
     let $gnd := $person/tei:note/tei:p[3]/text()
     let $sex := data($person/@sex)
+    let $note := $person/tei:note/text()
     let $gnd_link := data($person/@xml:id)
         return
         <tr>
@@ -254,7 +255,8 @@ declare function app:listPers($node as node(), $model as map(*)) {
             <td>
                 <a href="{concat($hitHtml,data($person/@xml:id))}">{$gnd_link}</a>
             </td>
-              <td>{$sex}</td>
+            <td>{$sex}</td>
+            <td>{$note}</td>
         </tr>
 };
 
