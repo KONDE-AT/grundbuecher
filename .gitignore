@@ -6,3 +6,4 @@
 /data/editions/*.xml
 /data/indices/*.xml
 /data/meta/*.xml
+/build

@@ -241,21 +241,20 @@ declare function app:listPers($node as node(), $model as map(*)) {
     let $hitHtml := "hits.html?searchkey="
     for $person in doc($app:personIndex)//tei:listPerson/tei:person
     let $gnd := $person/tei:note/tei:p[3]/text()
-    let $gnd_link := if ($gnd != "no gnd provided") then
-        <a href="{$gnd}">{$gnd}</a>
-        else
-        "-"
+    let $sex := data($person/@sex)
+    let $gnd_link := data($person/@xml:id)
         return
         <tr>
             <td>
-                <a href="{concat($hitHtml,data($person/@xml:id))}">{$person/tei:persName/tei:surname}</a>
+                {$person/tei:persName/tei:surname}
             </td>
             <td>
                 {$person/tei:persName/tei:forename}
             </td>
             <td>
-                {$gnd_link}
+                <a href="{concat($hitHtml,data($person/@xml:id))}">{$gnd_link}</a>
             </td>
+              <td>{$sex}</td>
         </tr>
 };
 
@@ -517,7 +516,7 @@ declare function app:firstDoc($node as node(), $model as map(*)) {
  :)
 declare function app:fetchImprint($node as node(), $model as map(*)) {
     let $url := $app:redmineBaseUrl||$app:redmineID
-    let $request := 
+    let $request :=
     <http:request href="{$url}" method="GET"/>
     let $response := http:send-request($request)
         return $response[2]
