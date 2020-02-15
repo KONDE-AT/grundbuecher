@@ -8,6 +8,9 @@
       <fileset dir="../grundbuecher-data/data/editions"/>
     </copy>
     <copy file="../db_for_legal_transactions_monastries/data/lists/personList.xml" tofile="./data/indices/listperson.xml"/>
+    <copy file="../db_for_legal_transactions_monastries/data/lists/orgList.xml" tofile="./data/indices/listorg.xml"/>
+    <copy file="../db_for_legal_transactions_monastries/data/lists/placeList.xml" tofile="./data/indices/listplace.xml"/>
+
     <target name="xar">
         <mkdir dir="${build.dir}"/>
         <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="${build.dir}/* data/temp/** temp/**"/>
