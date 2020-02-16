@@ -482,23 +482,20 @@ declare function app:listBibl($node as node(), $model as map(*)) {
 declare function app:listOrg($node as node(), $model as map(*)) {
     let $hitHtml := "hits.html?searchkey="
     for $item in doc($app:orgIndex)//tei:listOrg/tei:org
-    let $altnames := normalize-space(string-join($item//tei:orgName[@type='alt'], ' '))
+    let $name := $item/tei:orgName//text()
+    let $type := data($item/@type)
     let $gnd := $item//tei:idno/text()
-    let $gnd_link := if ($gnd)
-        then
-            <a href="{$gnd}">{$gnd}</a>
-        else
-            'no normdata provided'
+    let $xml_id := data($item/@xml:id)
    return
         <tr>
             <td>
-                <a href="{concat($hitHtml,data($item/@xml:id))}">{$item//tei:orgName[1]/text()}</a>
+                <a href="{concat($hitHtml,data($xml_id))}">{$xml_id}</a>
             </td>
             <td>
-                {$altnames}
+                {$type}
             </td>
             <td>
-                {$gnd_link}
+                {$name}
             </td>
         </tr>
 };
