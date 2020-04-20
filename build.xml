@@ -10,9 +10,6 @@
     <copy todir="./data/editions">
       <fileset dir="../gb-data/data/done"/>
     </copy>
-    <copy todir="./data/meta">
-      <fileset dir="../gb-data/data/meta"/>
-    </copy>
     <copy file="../db_for_medieval_legal_transactions/data/lists/personList.xml" tofile="./data/indices/listperson.xml"/>
     <copy file="../db_for_medieval_legal_transactions/data/lists/orgList.xml" tofile="./data/indices/listorg.xml"/>
     <copy file="../db_for_medieval_legal_transactions/data/lists/placeList.xml" tofile="./data/indices/listplace.xml"/>
