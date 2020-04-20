@@ -5,11 +5,17 @@
     <property name="project.app" value="grundbuecher"/>
     <property name="build.dir" value="build"/>
     <copy todir="./data/editions">
-      <fileset dir="../grundbuecher-data/data/editions"/>
+      <fileset dir="../gb-data/data/editions"/>
     </copy>
-    <copy file="../db_for_legal_transactions_monastries/data/lists/personList.xml" tofile="./data/indices/listperson.xml"/>
-    <copy file="../db_for_legal_transactions_monastries/data/lists/orgList.xml" tofile="./data/indices/listorg.xml"/>
-    <copy file="../db_for_legal_transactions_monastries/data/lists/placeList.xml" tofile="./data/indices/listplace.xml"/>
+    <copy todir="./data/editions">
+      <fileset dir="../gb-data/data/done"/>
+    </copy>
+    <copy todir="./data/meta">
+      <fileset dir="../gb-data/data/meta"/>
+    </copy>
+    <copy file="../db_for_medieval_legal_transactions/data/lists/personList.xml" tofile="./data/indices/listperson.xml"/>
+    <copy file="../db_for_medieval_legal_transactions/data/lists/orgList.xml" tofile="./data/indices/listorg.xml"/>
+    <copy file="../db_for_medieval_legal_transactions/data/lists/placeList.xml" tofile="./data/indices/listplace.xml"/>
 
     <target name="xar">
         <mkdir dir="${build.dir}"/>
