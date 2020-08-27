@@ -1,5 +1,5 @@
 xquery version "3.1";
-import module namespace app="http://www.digital-archiv.at/ns/grundbuecher/templates" at "../modules/app.xql";
+import module namespace app="http://www.digital-archiv.at/ns/templates" at "../modules/app.xql";
 declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
 
 let $doc-name := request:get-parameter('doc-name', '00009-eintrag_vom_1438-08-27.xml')

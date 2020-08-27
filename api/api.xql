@@ -5,10 +5,10 @@ xquery version "3.1";
  : @author Peter Andorfer
 :)
 
-module namespace api="http://www.digital-archiv.at/ns/grundbuecher/api";
+module namespace api="http://www.digital-archiv.at/ns/api";
 
 import module namespace functx = "http://www.functx.com";
-import module namespace config="http://www.digital-archiv.at/ns/grundbuecher/config" at "../modules/config.xqm";
+import module namespace config="http://www.digital-archiv.at/ns/config" at "../modules/config.xqm";
 import module namespace kwic = "http://exist-db.org/xquery/kwic" at "resource:org/exist/xquery/lib/kwic.xql";
 
 declare namespace rest = "http://exquery.org/ns/restxq";
