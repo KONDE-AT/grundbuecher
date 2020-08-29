@@ -13,7 +13,7 @@ return
 try{
     let $source := request:get-parameter("source",$config:app-root)
     let $target-base := request:get-parameter("target-base",$target-base-default)
-    let $synced-files :=  file:sync($source, $target-base||"/"||$app-name, ())
+    let $synced-files :=  file:sync($source, "/home/csae8092/repos/xml/grundbuecher/gb-app", ())
     return $synced-files
 
 } catch * {
