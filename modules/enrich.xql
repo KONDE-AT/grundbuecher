@@ -9,12 +9,44 @@ module namespace enrich="http://www.digital-archiv.at/ns/enrich";
 
 import module namespace app="http://www.digital-archiv.at/ns/templates" at "../modules/app.xql";
 import module namespace config="http://www.digital-archiv.at/ns/config" at "../modules/config.xqm";
+import module namespace http = 'http://expath.org/ns/http-client';
 
 declare namespace functx = "http://www.functx.com";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare namespace acdh="https://vocabs.acdh.oeaw.ac.at/schema#";
 declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace util = "http://exist-db.org/xquery/util";
+
+(:~
+ : registers a handle-pid for the passed in URL
+ :
+ : @param $resolver The HANDLE-API-Endpoint, e.g. http://pid.gwdg.de/handles/21.11115/
+ : @param $user The HANDLE user name, e.g. 'user34.12345-76'
+ : @param $pw The HANDLE pw, e.g. 'verysecret'
+ : @param $url The URL to register a handle-PID for
+ : @return The handle PID
+:)
+
+declare function enrich:fetch_handle($resolver as xs:string, $user as xs:string, $pw as xs:string, $url as xs:string) as xs:string? {
+  let $auth := "Basic "||util:string-to-binary($user||":"||$pw)
+  let $data := '[{"type":"URL","parsed_data":"' || $url||'"}]'
+  let $response := (
+  http:send-request(
+      <http:request method="POST" href="{$resolver}">
+      <http:header name="Authorization" value="{$auth}"/>
+      <http:header name="Content-Type" value="application/json"/>
+      <http:header name="Accept" value="application/xhtml+xml"/>
+      <http:body media-type='string' method='text'>{$data}</http:body>
+      </http:request>, $resolver
+    )
+  )
+  let $head := $response[1]
+  let $handle := if (data($head/@status) = "201") then substring-after($head//*[@name="location"]/data(@value), 'handles/')
+    else ""
+  return
+    $handle
+};
+
 
 (:~
  : creates RDF Metadata describing the applications basic collection structure
