@@ -34,7 +34,7 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
       <acdh:hasRightsHolder rdf:resource="https://d-nb.info/gnd/2060831-7"/>
       <acdh:hasOwner rdf:resource="https://d-nb.info/gnd/2060831-7"/>
       <acdh:hasLicensor rdf:resource="https://d-nb.info/gnd/2060831-7"/>
-      <acdh:hasLicense rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-4-0"/>
+      <acdh:hasLicense rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-nc-nd-4-0"/>
       <acdh:hasCategory rdf:resource="https://vocabs.acdh.oeaw.ac.at/archecategory/image"/>
       <acdh:hasOaiSet rdf:resource="https://vocabs.acdh.oeaw.ac.at/archeoaisets/kulturpool"/>
       <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
