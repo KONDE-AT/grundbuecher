@@ -6,5 +6,6 @@
 /data/editions/*.xml
 /data/indices/*.xml
 /data/meta/*.xml
-/data/meta/*.rdf
 /build
+*.xpr
+tmp.html
