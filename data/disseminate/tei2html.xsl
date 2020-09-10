@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sparql="http://www.w3.org/2005/sparql-results#" xmlns:my="http://test.org/" exclude-result-prefixes="tei" version="2.0">
     <xsl:output encoding="UTF-8" media-type="text/html" method="html" version="5.0" indent="yes"/>
+    <xsl:param name="tei"/>
     <xsl:variable name="title">
         <xsl:value-of select="normalize-space(string-join(//tei:titleStmt[1]/tei:title//text(), ' '))"/>
     </xsl:variable>
-    <xsl:variable name="path2source">hansi4ever</xsl:variable>
+    <xsl:variable name="path2source">
+        <xsl:value-of select="$tei"/>
+    </xsl:variable>
     <xsl:variable name="projectName">Digitale Edition Wiener Grundbücher</xsl:variable>
     <xsl:variable name="prev">
         <xsl:value-of select="//data(tei:TEI/@prev)"/>
@@ -144,7 +147,7 @@
                                                 </xsl:choose>
                                             </h2>
 
-                                            
+
                                         </div>
                                         <div class="col-md-2" style="text-align:right">
                                             <xsl:if test="$next">
@@ -313,7 +316,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -607,7 +610,7 @@
         </div>
     </div>
     <!-- FETCH-MENTIONS-MODAL -->
-    
+
     <xsl:apply-templates select="//tei:back//tei:place"/>
     <xsl:apply-templates select="//tei:back//tei:person"/>
     <xsl:apply-templates select="//tei:back//tei:org"/>
