@@ -42,6 +42,7 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
     let $id := $x
     let $arche_id := "https://id.acdh.oeaw.ac.at/grundbuecher-facs/"||$id
     let $title := replace(replace($x, '.jpg', ''), '_', ' ')
+    let $docs := collection($app:data)//tei:TEI[.//tei:graphic[@url=$id]]
     where $id != ""
 
     return
@@ -66,6 +67,12 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
         <acdh:hasCategory rdf:resource="https://vocabs.acdh.oeaw.ac.at/archecategory/image"/>
         <acdh:hasLicense rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-nc-nd-4-0"/>
         <acdh:hasFormat>image/jpeg</acdh:hasFormat>
+        {
+            for $doc in $docs            
+            let $doc-id := "https://id.acdh.oeaw.ac.at/grundbuecher/editions/"||/data($doc/@xml:id)
+            return
+                <acdh:isSourceOf rdf:resource="{$doc-id}"/>
+         }
     </acdh:Resource>
 }
 </rdf:RDF>
