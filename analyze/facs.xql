@@ -69,7 +69,7 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
         <acdh:hasFormat>image/jpeg</acdh:hasFormat>
         {
             for $doc in $docs            
-            let $doc-id := "https://id.acdh.oeaw.ac.at/grundbuecher/editions/"||/data($doc/@xml:id)
+            let $doc-id := data($doc/@xml:base)||"/"||data($doc/@xml:id)
             return
                 <acdh:isSourceOf rdf:resource="{$doc-id}"/>
          }
