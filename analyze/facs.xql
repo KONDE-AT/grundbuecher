@@ -15,7 +15,7 @@ declare option output:media-type "application/xml";
 
 let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:acdh="https://vocabs.acdh.oeaw.ac.at/schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xml:base="https://id.acdh.oeaw.ac.at/">
     <acdh:TopCollection rdf:about="https://id.acdh.oeaw.ac.at/grundbuecher-facs">
-        <acdh:hasTitle xml:lang="de">Faksimiles des Darlehensbuch Satzbuch CD (1438-1473</acdh:hasTitle>
+        <acdh:hasTitle xml:lang="de">Faksimiles des Darlehensbuch Satzbuch CD (1438-1473)</acdh:hasTitle>
         <acdh:hasDescription xml:lang="de">Diese Sammlung enthält die Scans des Darlehensbuch Satzbuch CD (1438-1473) (Signatur WStLA 2.1.2.1.B1.34), angefertigt vom Wiener Stadt- und Landesarchiv</acdh:hasDescription>
         <acdh:hasCoverageStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1438-01-01</acdh:hasCoverageStartDate>
         <acdh:hasCoverageEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1473-12-31</acdh:hasCoverageEndDate>
