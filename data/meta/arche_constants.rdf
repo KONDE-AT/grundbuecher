@@ -100,7 +100,7 @@
 
     <!-- maps arche props to their values via xpath expressions; be aware the current TEI document needs to be encoded as '$doc' -->
     <acdh:TeiLookUps collection="editions">
-        <acdh:hasTitle type="literal">$item//tei:titleStmt/tei:title[@type="main"]/text()</acdh:hasTitle>
+        <acdh:hasTitle type="literal">normalize-space(string-join($item//tei:titleStmt/tei:title[@type="main"]//text()))</acdh:hasTitle>
         <acdh:hasCreator type="resource_many">$item//tei:respStmt/tei:name/tei:rs/@ref</acdh:hasCreator>
         <acdh:hasCoverageStartDate type="date">$item//tei:origin/data(@notBefore)</acdh:hasCoverageStartDate>
         <acdh:hasNonLinkedIdentifier type="literal">concat("Archivsignatur: ", $item//tei:idno[@type="archive"]/text())</acdh:hasNonLinkedIdentifier>
