@@ -106,6 +106,5 @@
         <acdh:hasNonLinkedIdentifier type="literal">concat("Archivsignatur: ", $item//tei:idno[@type="archive"]/text())</acdh:hasNonLinkedIdentifier>
         <acdh:continues type="resource">$item/@pref</acdh:continues>
         <acdh:hasPid type="literal_no_lang">$item//tei:idno[@type='handle']/text()</acdh:hasPid> 
-        <!-- <acdh:hasSource type="resource_many">$item//tei:graphic/@url</acdh:hasSource> -->
     </acdh:TeiLookUps>
 </acdh:ACDH>
