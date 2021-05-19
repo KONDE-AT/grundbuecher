@@ -26,13 +26,14 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
         <acdh:hasOaiSet rdf:resource="https://vocabs.acdh.oeaw.ac.at/archeoaisets/kulturpool"/>
         <acdh:hasSubject xml:lang="de">Grundbuch</acdh:hasSubject>
         <acdh:hasSubject xml:lang="de">Geschichte</acdh:hasSubject>
-        <acdh:hasContact rdf:resource="https://d-nb.info/gnd/2060831-7"/> 
+        <acdh:hasContact rdf:resource="https://d-nb.info/gnd/1043833846"/> 
         <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasCurator rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasRelatedDiscipline rdf:resource="https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601"/> <!-- Geschichte, Archäologie -->
         <acdh:hasSpatialCoverage rdf:resource="https://www.geonames.org/2761367"/>
         <acdh:hasMetadataCreator rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasLicense rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-nc-nd-4-0"/>
+        <acdh:hasPid>create</acdh:hasPid>
     </acdh:TopCollection>
     <acdh:Organisation rdf:about="https://d-nb.info/gnd/2060831-7">
         <acdh:hasTitle xml:lang="und">Wiener Stadt- und Landesarchiv</acdh:hasTitle>
@@ -47,9 +48,10 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
 
     return
     <acdh:Resource rdf:about="{$arche_id}">
-      <acdh:isPartOf rdf:resource="https://id.acdh.oeaw.ac.at/grundbuecher-facs"/>
-      <acdh:hasTitle xml:lang="de">Faksimile von {$title}</acdh:hasTitle>
-       <acdh:hasCoverageStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1438-01-01</acdh:hasCoverageStartDate>
+        <acdh:hasPid>create</acdh:hasPid>
+        <acdh:isPartOf rdf:resource="https://id.acdh.oeaw.ac.at/grundbuecher-facs"/>
+        <acdh:hasTitle xml:lang="de">Faksimile von {$title}</acdh:hasTitle>
+        <acdh:hasCoverageStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1438-01-01</acdh:hasCoverageStartDate>
         <acdh:hasCoverageEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">1473-12-31</acdh:hasCoverageEndDate>
         <acdh:hasCreator rdf:resource="https://d-nb.info/gnd/2060831-7"/>
         <acdh:hasRightsHolder rdf:resource="https://d-nb.info/gnd/2060831-7"/>
@@ -58,7 +60,7 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
         <acdh:hasOaiSet rdf:resource="https://vocabs.acdh.oeaw.ac.at/archeoaisets/kulturpool"/>
         <acdh:hasSubject xml:lang="de">Grundbuch</acdh:hasSubject>
         <acdh:hasSubject xml:lang="de">Geschichte</acdh:hasSubject>
-        <acdh:hasContact rdf:resource="https://d-nb.info/gnd/2060831-7"/> 
+        <acdh:hasContact rdf:resource="https://d-nb.info/gnd/1043833846"/> 
         <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasCurator rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasRelatedDiscipline rdf:resource="https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601"/> <!-- Geschichte, Archäologie -->
@@ -67,7 +69,7 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
         <acdh:hasCategory rdf:resource="https://vocabs.acdh.oeaw.ac.at/archecategory/image"/>
         <acdh:hasLicense rdf:resource="https://vocabs.acdh.oeaw.ac.at/archelicenses/cc-by-nc-nd-4-0"/>
         <acdh:hasFormat>image/jpeg</acdh:hasFormat>
-        {
+       {
             for $doc in $docs            
             let $doc-id := data($doc/@xml:base)||"/"||data($doc/@xml:id)
             return
