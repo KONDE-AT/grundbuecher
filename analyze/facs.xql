@@ -27,7 +27,7 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
         <acdh:hasSubject xml:lang="de">Grundbuch</acdh:hasSubject>
         <acdh:hasSubject xml:lang="de">Geschichte</acdh:hasSubject>
         <acdh:hasContact rdf:resource="https://d-nb.info/gnd/2060831-7"/> 
-        <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/2060831-7"/>
+        <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasCurator rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasRelatedDiscipline rdf:resource="https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601"/> <!-- Geschichte, Archäologie -->
         <acdh:hasSpatialCoverage rdf:resource="https://www.geonames.org/2761367"/>
@@ -59,7 +59,7 @@ let $result := <rdf:RDF xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns
         <acdh:hasSubject xml:lang="de">Grundbuch</acdh:hasSubject>
         <acdh:hasSubject xml:lang="de">Geschichte</acdh:hasSubject>
         <acdh:hasContact rdf:resource="https://d-nb.info/gnd/2060831-7"/> 
-        <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/2060831-7"/>
+        <acdh:hasDepositor rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasCurator rdf:resource="https://d-nb.info/gnd/1043833846"/>
         <acdh:hasRelatedDiscipline rdf:resource="https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601"/> <!-- Geschichte, Archäologie -->
         <acdh:hasSpatialCoverage rdf:resource="https://www.geonames.org/2761367"/>
